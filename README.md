@@ -1,52 +1,85 @@
 # Croft 
 
-Croft is programme to convert data into a website & visualisations. Based on a generic data model
-or the basic features (which you stretch your data to fit into), plus confirmation and custom
-extensions to adapt for some of the basic common features used in showing a dataset,
-most usually for digital humanities. Example project types expected to work:
+  A quick way to record and show that something happened to someone
+  at sometime and in someplace. 
 
-  - Participant/Event - Some people did some things at some points in time in some places (e.g. - 
-  - Text/Event - Some texts were written at some point and then other things happened to them (e.g. - Vindolanda)
-  - Place/Event - Some things happened at some places (e.g. historic gardens of Rome)
-  - Participant/Event/Observation - Some things happened and some people had thoughts about that
+Croft is a programme to quickly convert some factual data into a website view for wider dissemnination. 
+Based around collections of statements each of which can have four primitive types (common to many research
+projects data outputs) attached:
 
-As you can see, the core types are:
-  
-   - Participant 
-   - Event
-   - Place
-   - Text
-   - Document
-   - Observation
+   - Actor  (Who)
+   - Thing  (What)
+   - Event  (When)
+   - Place  (Where)
 
-most of which can then also have the other types relating.
+These all can have the following fields stored (one of which must act as a key to be group different data sources
+together if your data is split into multiple CSV files)
 
-In theory, this handles quite a lot of the basic data models created for DH projects, however be aware
-that if you want a lot more complexity, you should probably start on your own project instead of trying
-to fit it into this.
+   - Name
+   - Description
+   - Images[]
+   - Websites[]
+   - Location (Name, Description, Lat, Long)
+   - DateTIme (When) (Name, Parsed)
+   - Meta[] - Other fields (can be shown but cannot be used to form a data view)
 
+Four secondary types can be attached to [name for ovreall thing]:
+
+   - Text - Some information was created at the time and is known about
+   - Document - Some information was created at the time and has a physical carrier
+   - Observation - Some additional (textual) information was recorded (then or subsequently)
+   - Measurement - Some additional (numeric) information was recorded (then or subsequently)
+
+From this, you can configure different viewpoints to pull out the data for the view you need,
+for example if you want to show:
+
+  - Actor/Event - Some people did some things at some points in time in some places 
+  - Event+Observation - Some texts were written at some point and then they were discovered later (e.g. - Vindolanda Tablets)
+  - Place/Event/Actor - Some things happened at some places (e.g. historic gardens of Ancient Rome existed and had owners)
+  - Actor/Event+Observation - Some things happened and some people had thoughts about that
+
+all of which can then also have the other types relating to them.
+
+Examples:
+ 
+   Paintings made of Mount Vesuvisus
+
+       Actor - Painter 
+	   Thing - Painting
+
+In theory, this handles quite a lot of basic data models created for DH projects, however be aware
+that if you want this to be more complex, you should probably start on your own project instead of
+trying to fit your data into this system. You could also consider using and extending OpenAtlas,
+hich you will notice uses the same primitives (based on the CIDOC-CRM). 
+
+Limitations:
+  - Statements cannot be made about statements
+  - 
 Based on Palladio.
 
 ## How it works
 
-# Phase 1
+# Step 1
 
-Croft reads in your data and generates two outputs - Hugo markdown content and inferred data for visualisations
+Croft reads in your data and generates two outputs - Hugo markdown content and data for visualisations
 
-Data can be in a basic form as a single CSV, multiple CSV, JSON, etc.
+Data can be in a basic form 
+  - single CSV, 
+  - multiple CSV (with common identifier)
+  - YAML
 
-# Phase 2 (optional)
+# Step 2 (optional)
 
-Croft generate the visualisations as images or packages visualisation (?) within Jupyter (?)
+Croft generate visualisations either as static images or dynamic data visualisations (?) within Jupyter (?)
 
-### Phase 3
+### Step 3
 
-You need to then run Hugo to generate the site which turns the markdown content into HTML pages, generates the site structure (listings), and integrates
-the visualisations.
+Running Hugo generates the site - this turns the markdown content into HTML pages, generates the site structure (listings), and
+includes any visualisations.
 
-### Phase 4 (optional)
+### Step 4 (optional) - FUTURE
 
-Convert into a PWA so can be downloaded to a phone or tablet
+Convert into a PWA so can be downloaded to a phone or tablet and run as a standalone app.
 
 ## Plugins
 
@@ -61,10 +94,8 @@ Planned:
   - Photo Wall
   - Event Timeline
   - Topic 
-  - Probably Mythical Generic Data Visualisation 
+  - Mythical generic meaningful data visualisation interface
 
 ## Name
 
-Was Named after Henry Flitcroft as croft but croft is too popular
-
-Brid after Bridlington / Burlington / Palladio 
+Named after Henry Flitcroft 
