@@ -14,6 +14,9 @@ class Primitive():
         # XXX check if alredy set
         self.secondary_fields[key] = val
 
+    def get_primary_field(self, key):
+        return self.primary_fields[key]
+
     def get_primary_fields(self):
         return self.primary_fields
 
