@@ -6,17 +6,41 @@ sys.path.append(".")
 from croft.datasource import DataSource
 from croft.views.quarto import Quarto
 import json
+import argparse
+from pathlib import Path
 
-with open('croft-config.json') as config_file:
+config = None
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--config", help="Config file to read in", type=str)
+parser.add_argument("--output_dir", help="Location to write files", type=str)
+
+args = parser.parse_args()
+
+config_file = Path(args.config)
+
+if config_file.is_file():
+  with open('croft-config.json') as config_file:
     config = json.load(config_file)
+else:
+    print(f"Failed to file config file {args.config}, exiting")
+    exit(1)
+
+# Read in the data based on config settings
 
 datasource = DataSource(config)
 
+# Convert into Quarto data
 croft = Quarto(keep_nav_names=True, config=config)
 
 croft.add_views(datasource)
 
 print("Writing out content")
 
-croft.write("./pages/content/mysite")
+output_dir = Path(args.output_dir)
 
+if output_dir.is_directory():
+  croft.write(args.output_dir)
+else:
+    print(f"Outout directory {args.output_dir} does not exist, existing")
+    exit(1)
